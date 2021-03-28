@@ -12,6 +12,7 @@ class TasksController < ApplicationController
   end
 
   def edit
+    @task = Task.find(params[:id])
   end
 
   def create
@@ -20,8 +21,15 @@ class TasksController < ApplicationController
   	redirect_to tasks_url, notice: "タスク「#{task.name}」を登録しました。" 
   end
 
+  def update
+    task = Task.find(params[:id])
+    task.update!(task_params)
+    redirect_to tasks_url, notice: "タスク「#{task.name}』を更新しました。"
+  end
+
   private
   def task_params
   	params.require(:task).permit(:name, :description)
   end
+
 end
