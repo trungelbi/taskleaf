@@ -9,5 +9,6 @@ table.table.table-hover
 		tbody
 			- @task.each do |task|
 				tr
-					td= task.name
+					td= link_to task.name, task_path(task)
 					td= task.created_at
+					
