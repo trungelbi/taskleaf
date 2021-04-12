@@ -2,6 +2,7 @@ class TasksController < ApplicationController
   before_action :set_task, only: [:show, :edit, :update, :destroy]
   def index
   	@task = current_user.tasks
+    # @task = Task2.all
   end
 
   def show
@@ -21,7 +22,8 @@ class TasksController < ApplicationController
     @task = current_user.tasks.new(task_params)
     # @task = current_user.tasks.order(created_at: :desc)
   	if @task.save
-  	redirect_to @task, notice: "タスク「#{@task.name}」を登録しました。" 
+       logger.debug "task: #{@task.attributes.inspect}"
+  	   redirect_to @task, notice: "タスク「#{@task.name}」を登録しました。" 
     else
     render :new
     end
@@ -30,14 +32,14 @@ class TasksController < ApplicationController
 
   def update
     # task = current_user.tasks.find(params[:id])
-    task.update!(task_params)
-    redirect_to tasks_url, notice: "タスク「#{task.name}』を更新しました。"
+    @task.update!(task_params)
+    redirect_to tasks_url, notice: "タスク「#{@task.name}』を更新しました。"
   end
 
   def destroy
     # task = current_user.tasks.find(params[:id])
-    task.destroy
-    redirect_to tasks_url, notice: "タスク『#{task.name}』を削除しました。 "
+    @task.destroy
+    redirect_to tasks_url, notice: "タスク『#{@task.name}』を削除しました。 "
   end
 
   private

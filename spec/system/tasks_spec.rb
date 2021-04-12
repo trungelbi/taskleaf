@@ -37,4 +37,26 @@ describe 'task kanrikikai', type: :system do
 			it_behaves_like 'task user a show'
 		end
 	end
+	describe '新規作成機能' do
+		let(:login_user) { user_a }
+		before do
+			visit new_task_path
+			fill_in 'Name', with: task_name
+			click_button 'Create Task'
+		end
+		context 'fill title or not?' do
+			let(:task_name) {'new task'}
+			it 'susscess' do
+				expect(page).to have_selector '.alert-success', text: 'new task'
+			end
+		end
+		context 'not fill title' do
+			let(:task_name) {''}
+			it 'error' do
+		# 		within '#error_explanation' do
+					expect(page).to have_content '名前なし'
+		# 		end
+			end
+		end
+	end
 end
