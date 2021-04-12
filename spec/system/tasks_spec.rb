@@ -11,12 +11,14 @@ describe 'task kanrikikai', type: :system do
 		fill_in 'パスワード', with: login_user.password
 		click_button 'ログインする'
 	end
+	shared_examples_for 'task user a show' do
+		it { expect(page).to have_content 'first task'}
+	end
 	describe 'hyoujikikai' do
 		context 'dang nhap user a' do
 			let(:login_user) {user_a}
-			it 'task user a dc tao' do
-				expect(page).to have_content 'first task'
-			end
+			
+			it_behaves_like 'task user a show'
 		end
 		context 'dang nhap user b' do
 			let(:login_user) {user_b}
@@ -32,9 +34,7 @@ describe 'task kanrikikai', type: :system do
 				visit task_path(task_a)
 
 			end
-			it 'task user a show' do
-				expect(page).to have_content 'first task'
-			end
+			it_behaves_like 'task user a show'
 		end
 	end
 end
