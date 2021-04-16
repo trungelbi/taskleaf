@@ -6,10 +6,11 @@ Rails.application.routes.draw do
     resources :users
   end
 	root to: 'tasks#index'
-	resources :tasks
-  get 'tasks/index'
-  get 'tasks/show'
-  get 'tasks/new'
-  get 'tasks/edit'
-  # For details on the DSL available within this file, see https://guides.rubyonrails.org/routing.html
+	resources :tasks do
+    post :confirm, action: :confirm_new, on: :new   
+  end
+ #  get 'tasks/index'
+ #    get 'tasks/show'
+ #    get 'tasks/new'
+ #    get 'tasks/edit'
 end
